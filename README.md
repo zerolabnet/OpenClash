@@ -1,6 +1,6 @@
 ### Description
 
-OpenClash without `kmod-inet-diag` dependence.
+OpenClash compiled without `kmod-inet-diag` dependence. For users who're using the stable version (21.02.3 now) which does not have `kmod-inet-diag` in the repository.
 
 ### Install dependencies
 
