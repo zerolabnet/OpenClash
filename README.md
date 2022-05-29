@@ -14,6 +14,6 @@ opkg install wget-ssl coreutils-nohup bash iptables curl ca-certificates ipset i
 
 ```bash
 cd /tmp
-wget https://github.com/zerolabnet/OpenClash/releases/download/v0.45.16-beta/luci-app-openclash_0.45.16-beta_all.ipk
-opkg install luci-app-openclash_0.45.16-beta_all.ipk
+wget https://github.com/zerolabnet/OpenClash/releases/download/v0.45.22-beta/luci-app-openclash_0.45.22-beta_all.ipk
+opkg install luci-app-openclash_0.45.22-beta_all.ipk
 ```
