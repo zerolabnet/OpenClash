@@ -2,6 +2,10 @@
 
 OpenClash compiled without `kmod-inet-diag` dependence. For users who're using the stable version (21.02.3 now) which does not have `kmod-inet-diag` in the repository.
 
+### My changes
+
+In the "Small Flash Memory" mode, the `rule_provider` folder has been moved to tmpfs since v0.45.22-beta.
+
 ### Install dependencies
 
 ```bash
