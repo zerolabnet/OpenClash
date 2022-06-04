@@ -1,0 +1,49 @@
+--- /etc/init.d/openclash	2022-06-04 14:32:58.000000000 +0300
++++ /etc/init.d/openclash_patched	2022-06-04 14:34:43.000000000 +0300
+@@ -462,7 +462,9 @@
+       mv "/tmp/etc/openclash/china_ip6_route.ipset" "$chnr6_path" 2>/dev/null
+       mv "/tmp/etc/openclash/GeoSite.dat" "$geosite_path" 2>/dev/null
+       mv "/tmp/etc/openclash/GeoIP.dat" "$geoip_path" 2>/dev/null
+-      mv "/tmp/etc/openclash/core/" "/etc/openclash" 2>/dev/null
++      mv "/tmp/etc/openclash/core/" "/etc/openclash/" 2>/dev/null
++      [ -h "/etc/openclash/rule_provider" ] && rm -rf "/etc/openclash/rule_provider" 2>/dev/null
++      mv "/tmp/etc/openclash/rule_provider/" "/etc/openclash/" 2>/dev/null
+       if [ "$CACHE_PATH" != "/tmp/etc/openclash/cache.db" ]; then
+          rm -rf "/tmp/etc/openclash" 2>/dev/null
+       fi
+@@ -480,7 +482,12 @@
+       [ ! -h "/etc/openclash/china_ip6_route.ipset" ] && mv "/etc/openclash/china_ip6_route.ipset" "$chnr6_path" 2>/dev/null
+       [ ! -h "/etc/openclash/GeoSite.dat" ] && mv "/etc/openclash/GeoSite.dat" "$geosite_path" 2>/dev/null
+       [ ! -h "/etc/openclash/GeoIP.dat" ] && mv "/etc/openclash/GeoIP.dat" "$geoip_path" 2>/dev/null
+-      mv "/etc/openclash/core/" "/tmp/etc/openclash" 2>/dev/null
++      mv "/etc/openclash/core/" "/tmp/etc/openclash/" 2>/dev/null
++      [ -h "/etc/openclash/rule_provider" ] && rm -rf "/etc/openclash/rule_provider" 2>/dev/null
++      if ! mv "/etc/openclash/rule_provider/" "/tmp/etc/openclash/" 2>/dev/null; then
++         mkdir -p "/tmp/etc/openclash/rule_provider" 2>/dev/null
++      fi
++      ln -s "/tmp/etc/openclash/rule_provider" "/etc/openclash/rule_provider" 2>/dev/null
+    fi
+
+    rm -rf "/etc/openclash/cache.db" 2>/dev/null
+@@ -694,7 +701,11 @@
+          #防止赋权失败
+          touch "/tmp/openclash.log" 2>/dev/null
+          chmod o+w /etc/openclash/proxy_provider/* 2>/dev/null
+-         chmod o+w /etc/openclash/rule_provider/* 2>/dev/null
++         if [ "$small_flash_memory" != "1" ]; then
++            chmod o+w /etc/openclash/rule_provider/* 2>/dev/null
++         else
++            chmod o+w /tmp/etc/openclash/rule_provider/* 2>/dev/null
++         fi
+          chmod o+w /etc/openclash/history/* 2>/dev/null
+          chmod o+w /etc/openclash/cache.db 2>/dev/null
+          chmod o+w /tmp/openclash.log 2>/dev/null
+@@ -1694,7 +1705,7 @@
+       rm -rf /tmp/openclash_config.tmp >/dev/null 2>&1
+       rm -rf /tmp/openclash.change >/dev/null 2>&1
+       rm -rf /tmp/openclash_debug.log >/dev/null 2>&1
+-      rm -rf /tmp/etc/openclash >/dev/null 2>&1
++      rm -rf /tmp/etc/openclash/cache.db >/dev/null 2>&1
+       rm -rf /tmp/openclash_edit_file_name >/dev/null 2>&1
+       del_lock
+       LOG_OUT "OpenClash Already Stop!"
