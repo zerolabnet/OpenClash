@@ -1,3 +1,7 @@
+Development of the new simpler product (Super Simple Clash) continues in this repository: https://github.com/zerolabnet/ssclash
+
+---
+
 ### Description
 
 OpenClash compiled without `kmod-inet-diag` dependence. For users who're using the version which does not have `kmod-inet-diag` in the repository.
